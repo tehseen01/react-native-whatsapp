@@ -12,6 +12,8 @@ import com.facebook.react.defaults.DefaultReactNativeHost
 import com.facebook.react.flipper.ReactNativeFlipper
 import com.facebook.soloader.SoLoader
 import org.devio.rn.splashscreen.SplashScreenReactPackage;
+import com.azendoo.reactnativesnackbar.SnackbarPackage;
+import com.lugg.RNCConfig.RNCConfigPackage;
 
 class MainApplication : Application(), ReactApplication {
 

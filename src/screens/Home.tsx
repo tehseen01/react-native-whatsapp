@@ -1,10 +1,8 @@
 import {
   View,
-  Text,
   TouchableOpacity,
   Image,
   SafeAreaView,
-  ScrollView,
   FlatList,
 } from 'react-native';
 import React, {useLayoutEffect} from 'react';
@@ -14,10 +12,14 @@ import {RootStackParamsList} from '../components/navigation/TabNavigation';
 import {Camera, Search} from 'lucide-react-native';
 import {DataDisplay} from '../components';
 import {data} from '../data';
+import useAppwrite from '../appwrite/Context';
+import Snackbar from 'react-native-snackbar';
 
 type HomeProps = BottomTabScreenProps<RootStackParamsList, 'Chats'>;
 
 const Home = ({navigation}: HomeProps) => {
+  const {appwrite, setIsLoggedIn} = useAppwrite();
+
   useLayoutEffect(() => {
     navigation.setOptions({
       headerRight: props => {
@@ -29,7 +31,16 @@ const Home = ({navigation}: HomeProps) => {
             <TouchableOpacity>
               <Search className="text-black/70" />
             </TouchableOpacity>
-            <TouchableOpacity>
+            <TouchableOpacity
+              onPress={() =>
+                appwrite.logout().then(() => {
+                  setIsLoggedIn(false),
+                    Snackbar.show({
+                      text: 'Successfully logout',
+                      duration: Snackbar.LENGTH_SHORT,
+                    });
+                })
+              }>
               <Image
                 className="rounded-full ml-2"
                 source={{

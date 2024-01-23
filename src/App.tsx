@@ -1,10 +1,11 @@
-import {NavigationContainer} from '@react-navigation/native';
 import React, {useEffect} from 'react';
 
 import {SafeAreaProvider} from 'react-native-safe-area-context';
-import {Navigation} from './components';
 
 import SplashScreen from 'react-native-splash-screen';
+import Router from './routes/Router';
+import Toast from 'react-native-toast-message';
+import {AppwriteProvider} from './appwrite/Context';
 
 function App(): React.JSX.Element {
   useEffect(() => {
@@ -14,11 +15,12 @@ function App(): React.JSX.Element {
   }, []);
 
   return (
-    <SafeAreaProvider>
-      <NavigationContainer>
-        <Navigation.TabNavigation />
-      </NavigationContainer>
-    </SafeAreaProvider>
+    <AppwriteProvider>
+      <SafeAreaProvider>
+        <Router />
+        <Toast />
+      </SafeAreaProvider>
+    </AppwriteProvider>
   );
 }
 
